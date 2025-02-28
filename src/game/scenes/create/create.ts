@@ -1,9 +1,9 @@
 import { HEIGHT, WIDTH } from "../../../constants/constants";
-import collectStars from "./collectStars";
+import collectStars from "./startCollection";
 import createPlatforms from "./createPlatforms";
-import { createPlayer } from "./createPlayer";
+import { createPlayer } from "./Player";
 import { createStars } from "./createStars";
-import gameOverHandler from "./gameOverHandler";
+import gameOverHandler from "./gameOver";
 
 export type Sprite = Phaser.Physics.Arcade.Sprite;
 export type GroupType = Phaser.Physics.Arcade.Group;
