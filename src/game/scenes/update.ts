@@ -1,23 +1,29 @@
-import { gameState } from "../../state/state";
+type playerBody = Phaser.Physics.Arcade.Body;
 
-export default function update() {
-    if (gameState.gameOver || !gameState.player || !gameState.cursors) {
-        return;
-    }
+import { player } from "./create/create";
 
-    if (gameState.cursors.left.isDown) {
-        gameState.player.setVelocityX(-160);
-        gameState.player.anims.play("left", true);
-    } else if (gameState.cursors.right.isDown) {
-        gameState.player.setVelocityX(160);
-        gameState.player.anims.play("right", true);
+export default function update(this: Phaser.Scene) {
+    let cursors: Phaser.Types.Input.Keyboard.CursorKeys;
+
+    cursors = (
+        this.input.keyboard as Phaser.Input.Keyboard.KeyboardPlugin
+    ).createCursorKeys();
+
+    if (cursors.left.isDown) {
+        player.setVelocityX(-160);
+
+        player.anims.play("left", true);
+    } else if (cursors.right.isDown) {
+        player.setVelocityX(160);
+
+        player.anims.play("right", true);
     } else {
-        gameState.player.setVelocityX(0);
-        gameState.player.anims.play("turn");
+        player.setVelocityX(0);
+
+        player.anims.play("turn");
     }
 
-    if (gameState.cursors.up.isDown && gameState.player.body.touching.down) {
-        gameState.player.setVelocityY(-330);
+    if (cursors.up.isDown && (player.body as playerBody).touching.down) {
+        player.setVelocityY(-330);
     }
 }
-
