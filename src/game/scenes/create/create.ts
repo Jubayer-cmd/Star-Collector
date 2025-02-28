@@ -1,10 +1,11 @@
-import { gameState } from "../../state";
+import { HEIGHT, WIDTH } from "../../../constants/constants";
+import { gameState } from "../../../state/state";
 import collectStar from "../../helpers/collectStar";
 import hitBomb from "../../helpers/hitBomb";
 
 export default function create(this: Phaser.Scene) {
     // A simple background for our game
-    this.add.image(400, 300, "sky");
+    this.add.image(WIDTH / 2, HEIGHT / 2, "sky").setDisplaySize(WIDTH, HEIGHT);
 
     gameState.platforms = this.physics.add.staticGroup();
 

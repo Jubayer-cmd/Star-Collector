@@ -1,4 +1,4 @@
-import { gameState } from "../state";
+import { gameState } from "../../state/state";
 
 export default function collectStar(
     this: Phaser.Scene,
