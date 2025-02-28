@@ -1,6 +1,4 @@
-import { ButtonConfig } from "../types/button";
-
-export const buttonConfig: ButtonConfig = {
+export const buttonConfig = {
     buttonText: "Start Game",
     buttonStyle: {
         color: "#FFFFFF",

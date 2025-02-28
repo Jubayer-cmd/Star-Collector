@@ -1,8 +1,0 @@
-export const GAME_EVENTS = {
-    START: "START_GAME",
-    GAME_OVER: "GAME_OVER",
-    SCORE_UPDATE: "SCORE_UPDATE",
-    COLLECT_STAR: "COLLECT_STAR",
-    PLAYER_DIED: "PLAYER_DIED",
-} as const;
-

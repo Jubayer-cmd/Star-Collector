@@ -1,42 +1,32 @@
 import Phaser from "phaser";
-import { GameAssets } from "../types/game";
-import { MainScene } from "./scenes/MainScene";
+import preload from "./scenes/preload";
+import create from "./scenes/create/create";
+import update from "./scenes/update";
+import { WIDTH, HEIGHT } from "../constants";
 
-export const GAME_WIDTH = 720;
-export const GAME_HEIGHT = 1280;
-
-export const ASSETS: GameAssets = {
-    sky: "assets/sky.png",
-    ground: "assets/platform.png",
-    star: "assets/star.png",
-    bomb: "assets/bomb.png",
-    dude: {
-        sprite: "assets/dude.png",
-        frameWidth: 32,
-        frameHeight: 48,
+export const config: Phaser.Types.Core.GameConfig = {
+    type: Phaser.AUTO,
+    width: WIDTH,
+    height: HEIGHT,
+    parent: "game-container",
+    scale: {
+        mode: Phaser.Scale.FIT,
+        parent: "game-container",
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: WIDTH,
+        height: HEIGHT,
     },
-};
-
-export const createGameConfig = (
-    parent: HTMLElement | null
-): Phaser.Types.Core.GameConfig => {
-    return {
-        type: Phaser.AUTO,
-        width: GAME_WIDTH,
-        height: GAME_HEIGHT,
-        physics: {
-            default: "arcade",
-            arcade: {
-                gravity: { y: 300 },
-                debug: false,
-            },
+    physics: {
+        default: "arcade",
+        arcade: {
+            gravity: { y: 300, x: 0 },
+            debug: false,
         },
-        scene: [MainScene],
-        parent: parent || undefined,
-        scale: {
-            mode: Phaser.Scale.FIT,
-            autoCenter: Phaser.Scale.CENTER_BOTH,
-        },
-    };
+    },
+    scene: {
+        preload: preload,
+        create: create,
+        update: update,
+    },
 };
 

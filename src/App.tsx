@@ -1,13 +1,10 @@
-import React from "react";
-import Game from "./components/Game";
+import Game from "./Game";
 
-const App: React.FC = () => {
+export default function App() {
     return (
-        <div style={{ width: "100%", height: "100%" }}>
+        <div className="app">
             <Game />
         </div>
     );
-};
-
-export default App;
+}
 
