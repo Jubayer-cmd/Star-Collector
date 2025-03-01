@@ -28,8 +28,8 @@ Before you begin, ensure you have the following installed:
 1. Clone the repository:
 
 ```bash
-git clone [your-repository-url]
-cd star-mario
+git clone https://github.com/Jubayer-cmd/Star-Collector
+cd Star-Collector
 ```
 
 2. Install dependencies:
