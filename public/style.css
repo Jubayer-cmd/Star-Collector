@@ -26,4 +26,12 @@ button {
     position: absolute;
     white-space: nowrap;
     transform: translateX(-50%);
+    width: 70%;
+    height: calc(48 / 1280 * 100%);
+    font-size: calc(18 / 720 * 100vw * 720 / 1280);
+    padding: calc(30 / 1280 * 100%) 20;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
 }
+
