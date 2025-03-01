@@ -1,9 +1,9 @@
 import { HEIGHT, WIDTH } from "../../../constants/constants";
-import collectStars from "./startCollection";
-import createPlatforms from "./createPlatforms";
+
 import { createPlayer } from "./Player";
-import { createStars } from "./createStars";
+import { createStars, handleStarCollection } from "./starSystem";
 import gameOverHandler from "./gameOver";
+import createPlatforms from "./platforms";
 
 export type Sprite = Phaser.Physics.Arcade.Sprite;
 export type GroupType = Phaser.Physics.Arcade.Group;
@@ -15,16 +15,46 @@ let bestScore: string = localStorage.getItem("bestScore") || "0";
 let scoreText: Phaser.GameObjects.Text;
 let stars: GroupType;
 let bombs: GroupType;
+// Add background music variable
+export let backgroundMusic: Phaser.Sound.BaseSound;
 
 const gameStats: stat = {
     score: 0,
     gameOver: false,
 };
 
+// Add at the top with other exports
+export let isMuted: boolean = false;
+
 export default function create(this: Phaser.Scene) {
     bestScore = localStorage.getItem("bestScore") || "0";
     // background
     this.add.image(WIDTH / 2, HEIGHT / 2, "sky").setDisplaySize(WIDTH, HEIGHT);
+
+    // Add sound control icon with smaller size
+    const soundButton = this.add
+        .image(WIDTH - 50, 30, "sound-on")
+        .setScale(0.03)
+        .setInteractive()
+        .setDepth(1);
+
+    soundButton.on("pointerdown", () => {
+        isMuted = !isMuted;
+        soundButton.setTexture(isMuted ? "sound-off" : "sound-on");
+
+        if (isMuted) {
+            this.sound.mute = true;
+        } else {
+            this.sound.mute = false;
+        }
+    });
+
+    // Start background music
+    backgroundMusic = this.sound.add("background", {
+        volume: 0.5,
+        loop: true,
+    });
+    backgroundMusic.play();
 
     //player creation
     player = createPlayer(this);
@@ -37,8 +67,6 @@ export default function create(this: Phaser.Scene) {
 
     //stars creation
     stars = createStars(this);
-
-    // enable collisions between ground and stars
     this.physics.add.collider(stars, platforms);
 
     //bomb creation
@@ -50,13 +78,13 @@ export default function create(this: Phaser.Scene) {
         player,
         bombs,
         () => gameOverHandler(this, player, gameStats),
-        null,
+        undefined,
         this
     );
 
     // star collection
     this.physics.add.overlap(player, stars, (player, star) => {
-        collectStars(
+        handleStarCollection(
             player as Sprite,
             star as Sprite,
             gameStats,
@@ -68,9 +96,9 @@ export default function create(this: Phaser.Scene) {
     });
 
     // display score
-    scoreText = this.add.text(16, 16, `score: 0; bestScore: ${bestScore}`, {
+    scoreText = this.add.text(16, 16, `Score: 0 | Best Score: ${bestScore}`, {
         fontSize: "32px",
-        fill: "#000",
+        color: "#000",
     });
 }
 

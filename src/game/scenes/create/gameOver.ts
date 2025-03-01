@@ -1,12 +1,17 @@
-// import { OVER } from "../../../constants";
 import Phaser from "phaser";
-import { stat } from "./create";
+import { stat, backgroundMusic } from "./create";
+
 export default function gameOverHandler(
     scene: Phaser.Scene,
     player: Phaser.Physics.Arcade.Sprite,
     gameStats: stat
 ) {
     scene.physics.pause();
+
+    // Stop background music and play game over sound
+    backgroundMusic.stop();
+    scene.sound.play("game-over", { volume: 0.7 });
+
     const storedbestScore = localStorage.getItem("bestScore");
 
     if (!storedbestScore || parseInt(storedbestScore) < gameStats.score) {
