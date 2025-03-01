@@ -7,10 +7,10 @@ export default function gameOverHandler(
     gameStats: stat
 ) {
     scene.physics.pause();
-    const storedHighscore = localStorage.getItem("highScore");
+    const storedbestScore = localStorage.getItem("bestScore");
 
-    if (!storedHighscore || parseInt(storedHighscore) < gameStats.score) {
-        localStorage.setItem("highScore", gameStats.score.toString());
+    if (!storedbestScore || parseInt(storedbestScore) < gameStats.score) {
+        localStorage.setItem("bestScore", gameStats.score.toString());
     }
     window.postMessage({ type: "OVER" });
     gameStats.score = 0;

@@ -4,14 +4,14 @@ export default function collectStars(
     player: Sprite,
     star: Sprite,
     gameStats: stat,
-    highScore: string,
+    bestScore: string,
     scoreText: Phaser.GameObjects.Text,
     bombs: GroupType,
     stars: GroupType
 ) {
     star.disableBody(true, true);
     gameStats.score += 10;
-    scoreText.setText(`Score: ${gameStats.score}; Highscore: ${highScore}`);
+    scoreText.setText(`Score: ${gameStats.score}; bestScore: ${bestScore}`);
 
     if (stars.countActive(true) === 0) {
         stars.children.iterate((child: any) => {
@@ -33,9 +33,9 @@ export default function collectStars(
     }
 
     // Update high score if current score is higher
-    if (gameStats.score > parseInt(highScore)) {
-        highScore = gameStats.score.toString();
-        localStorage.setItem("highScore", highScore);
+    if (gameStats.score > parseInt(bestScore)) {
+        bestScore = gameStats.score.toString();
+        localStorage.setItem("bestScore", bestScore);
     }
 }
 

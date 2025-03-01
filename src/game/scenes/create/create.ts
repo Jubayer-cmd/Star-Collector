@@ -11,7 +11,7 @@ export type stat = { score: number; gameOver: boolean };
 
 export let player: Sprite;
 let platforms: Phaser.Physics.Arcade.StaticGroup;
-let highScore: string = localStorage.getItem("highScore") || "0";
+let bestScore: string = localStorage.getItem("bestScore") || "0";
 let scoreText: Phaser.GameObjects.Text;
 let stars: GroupType;
 let bombs: GroupType;
@@ -22,7 +22,7 @@ const gameStats: stat = {
 };
 
 export default function create(this: Phaser.Scene) {
-    highScore = localStorage.getItem("highScore") || "0";
+    bestScore = localStorage.getItem("bestScore") || "0";
     // background
     this.add.image(WIDTH / 2, HEIGHT / 2, "sky").setDisplaySize(WIDTH, HEIGHT);
 
@@ -60,7 +60,7 @@ export default function create(this: Phaser.Scene) {
             player as Sprite,
             star as Sprite,
             gameStats,
-            highScore,
+            bestScore,
             scoreText,
             bombs,
             stars
@@ -68,7 +68,7 @@ export default function create(this: Phaser.Scene) {
     });
 
     // display score
-    scoreText = this.add.text(16, 16, `score: 0; highscore: ${highScore}`, {
+    scoreText = this.add.text(16, 16, `score: 0; bestScore: ${bestScore}`, {
         fontSize: "32px",
         fill: "#000",
     });

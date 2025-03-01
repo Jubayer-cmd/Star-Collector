@@ -13,3 +13,4 @@ export function createStars(scene: Phaser.Scene) {
 
     return stars;
 }
+
